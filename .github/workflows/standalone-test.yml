@@ -1,0 +1,24 @@
+name: Testar compilação Catroid
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Dar permissão ao Gradle
+        run: chmod +x ./gradlew
+
+      - name: Verificar tarefa standalone
+        run: ./gradlew :catroid:tasks --all
